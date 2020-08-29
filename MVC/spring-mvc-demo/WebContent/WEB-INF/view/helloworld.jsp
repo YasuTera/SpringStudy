@@ -7,10 +7,8 @@
 <title>demo</title>
 </head>
 <body>
-	<h2>Spring demo page</h2>
-	<br><hr>
-	<a href="hello/sForm">To Form page</a>
-	<br>
-	<a href="student/sForm">To Student form</a>
+	<p>Hello ${param.guest}! <br>Welcome Spring! </p>
+	
+	<p>The message: ${message}</p>
 </body>
 </html>
