@@ -12,5 +12,7 @@
 	<a href="hello/sForm">To Form page</a>
 	<br>
 	<a href="student/sForm">To Student form</a>
+	<br>
+	<a href="customer/sForm">To Customer form</a>
 </body>
 </html>
