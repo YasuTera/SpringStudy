@@ -5,19 +5,32 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}resources/css/customer-form.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/customer-form.css">
 	<title>Customer Registration form</title>
 </head>
 <body>
 	<i>苗字は必ず入力してください。</i><br>
 	<form:form action="pForm" modelAttribute="customer">
 		
-		苗字(*): <form:input path="lastName" /><br>
-		名前: <form:input path="firstName" /><br>
+		<p>
+			苗字(*): 	<form:input path="lastName" />
+					<form:errors path="lastName" cssClass="error" /><br>
+			名前:	 	<form:input path="firstName" />
+			
+		</p><br>
 		
-		<form:errors path="lastName" cssClass="error" />
+		<p>
+			FreePasses: <form:input path="freePss" />
+			<form:errors path="freePss" cssClass="error" /><br>
+			
+			郵便番号: <form:input path="postalCode" />
+			<form:errors path="postalCode" cssClass="error" /><br>
+			
+			コースコード: <form:input path="courseCode" />
+			<form:errors path="courseCode" cssClass="error" />
+		</p>
 		
-		<input type="submit" value="Submit" />
+			<input type="submit" value="Submit" />
 	
 	</form:form>
 </body>
