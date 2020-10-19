@@ -19,6 +19,12 @@
 	
 	<div id="container">
 		<div id="content">
+		
+		<!--  -->
+		<input type="button" value="追加" 
+			onclick="window.location.href='showAddForm'; return false"
+			class="add-button"
+		/>
 			
 			<!-- table section  --> 
 			<table>
@@ -26,15 +32,26 @@
 					<th>苗字 </th>
 					<th>名前 </th>
 					<th>Email </th>
+					<th> </th>
 				</tr>
 				
 				<!--  loop  -->
 				<c:forEach var="tempCustomer" items="${customers}">
 					
+					<!-- c　編集時データが入るように  -->
+					<c:url var="updateLink" value="/customer/showUpdForm">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+					
 					<tr>
 						<td>${tempCustomer.lastName}</td>
 						<td>${tempCustomer.firstName}</td>
 						<td>${tempCustomer.email}</td>
+						
+						<!-- updatelinks  -->
+						<td>
+							<a href="${updateLink}">編集</a>
+						</td>
 					</tr>
 					
 				</c:forEach>
