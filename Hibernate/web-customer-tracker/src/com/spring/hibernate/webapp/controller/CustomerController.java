@@ -54,6 +54,7 @@ public class CustomerController {
 		return "redirect:/customer/list";
 	}
 	
+	//c •ÒW XV
 	@GetMapping("/showUpdForm")
 	public String showFormUpd(@RequestParam("customerId") int theId, Model theModel) {
 		
@@ -64,5 +65,27 @@ public class CustomerController {
 		theModel.addAttribute("customer", theCustomer);
 		
 		return "customer-form";
+	}
+	
+	//c íœ
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		
+		//c ŒÚ‹qî•ñ‚Ìíœ
+		customerService.deleteCustomer(theId);
+		
+		return "redirect:/customer/list";
+	}
+	
+	@GetMapping("/search")
+	public String searchCustomers(@RequestParam("searchName") String searchName, Model theModel) {
+		
+		//c ŒŸõˆ—
+		List<Customer> theCustomers = customerService.searchCustomers(searchName);
+		
+		//model‚Öó‚¯“n‚µ
+		theModel.addAttribute("customers", theCustomers);
+		
+		return "list-customers";
 	}
 }

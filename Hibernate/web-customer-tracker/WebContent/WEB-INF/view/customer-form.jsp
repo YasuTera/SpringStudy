@@ -19,6 +19,9 @@
 		<h3>顧客情報追加フォーム...</h3>
 		<!-- MVC マッピング -->
 		<form:form action="saveCustomer" modelAttribute="customer" method="POST">
+		
+			<!-- c 関係づけ -->
+			<form:hidden path="id" />
 			<table>
 				<tbody>
 					<tr>
