@@ -81,7 +81,7 @@ public class CustomerDAOImpl implements customerDAO {
 			
 			//c　英字をすべて小文字に変換して検索処理
 			theQuery = currentSession.createQuery("from Customer where lower(firstName) like :tName or lower(lastName) like :tName", Customer.class);
-			theQuery.setParameter("tName", "%"+"searchName.toLowerCase()"+ "%");
+			theQuery.setParameter("tName", "%"+ searchName.toLowerCase() + "%");
 			
 		}else {
 			//c 検索フォームに入力が何もないFalse状態のとき　すべての顧客情報取得
