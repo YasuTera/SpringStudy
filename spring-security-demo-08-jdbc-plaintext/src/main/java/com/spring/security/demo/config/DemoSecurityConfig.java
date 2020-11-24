@@ -1,5 +1,8 @@
 package com.spring.security.demo.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,17 +14,16 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 @Configuration
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
+	//add
+	@Autowired
+	private DataSource securityDataSource;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		// User add in memory ユーザーの権限指定
-		UserBuilder users = User.withDefaultPasswordEncoder();
-		
-		auth.inMemoryAuthentication()
-			.withUser(users.username("Beruf0").password("berufadmin123").roles("EMPLOYEE"))
-			.withUser(users.username("Beruf1").password("berufadmin123").roles("EMPLOYEE", "MANAGER"))
-			.withUser(users.username("Beruf2").password("berufadmin123").roles("EMPLOYEE", "ADMIN"));
+		//jdbc利用でDBにユーザ追加
+		auth.jdbcAuthentication().dataSource(securityDataSource);
 	}
 
 	@Override
