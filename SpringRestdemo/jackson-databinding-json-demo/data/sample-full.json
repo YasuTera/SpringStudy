@@ -1,0 +1,16 @@
+{
+	"id": 14,
+	"firstName": "Beruf",
+	"lastName": "Instructor",
+	"active": true,
+	"address": {
+		"building": "Mizuho Daiichi Building",
+		"street": "Koishikawa 5-4-1",
+		"city": "Bunkyo",
+		"state": "Tokyo",
+		"zip": "1120002",
+		"country": "Japan"
+	},
+	"languages" : ["Java", "C", "Python", "PHP"],
+	"company": "Jinzaikyouiku-sha"
+}
