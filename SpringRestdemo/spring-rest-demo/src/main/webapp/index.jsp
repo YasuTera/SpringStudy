@@ -13,6 +13,8 @@
 	<hr>
 	
 	<a href="${pageContext.request.contextPath}/demo/hello">Hello</a>
+	<br><br>
 
+	<a href="${pageContext.request.contextPath}/api/students">Get All Students on JSON</a>
 </body>
 </html>
