@@ -3,9 +3,11 @@ package com.spring.demo.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +38,7 @@ public class CustomerRestController {
 		
 		//c エラーページ遷移処理　存在しないID URLとString URL
 		if(theCustomer == null) {
-			throw new CustomerNotFoundException("顧客IDが見つかりません - " + cId);
+			throw new CustomerNotFoundException("顧客ID:"+ cId +"が見つかりません");
 		}
 		
 		return theCustomer;
@@ -50,9 +52,35 @@ public class CustomerRestController {
 		//0/null　Insert処理になる　Hibernateの仕様　
 		addCs.setId(0);
 		
+		//c メイン処理
 		cs.saveCustomer(addCs);
 		
 		return addCs;
 	}
+	
+	//mapping PUT(update) /customers
+	@PutMapping("/customers")
+	public Customer updateCustomer(@RequestBody Customer putCs) {
+		
+		//c メイン処理
+		cs.saveCustomer(putCs);
+		return putCs;
+	}
+	
+	//mapping DELETE /customers/{customerId}
+	@DeleteMapping("/customers/{cId}")
+	public String deleteCustomer(@PathVariable int cId){
+		
+		//c 該当する顧客IDがなかったとき
+		Customer tmpCs = cs.getCustomer(cId);
+		if(tmpCs == null) {
+			throw new CustomerNotFoundException("顧客ID:"+ cId +"が見つかりません");
+		}
+
+		//c メイン処理
+		cs.deleteCustomer(cId);
+		return "顧客ID - "+ cId +"を削除しました";
+	}
+	
 	
 }
