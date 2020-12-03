@@ -8,44 +8,25 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomerRestExceptionHandler {
 
-	// Add an exception handler for CustomerNotFoundException
-	
+	//Exception CustomerNotFoundException (CustomerIDÇÃó·äOèàóù)
 	@ExceptionHandler
-	public ResponseEntity<CustomerErrorResponse> handleException(CustomerNotFoundException exc) {
+	public ResponseEntity<CustomerErrorResponse> handleException(CustomerNotFoundException e){
 		
-		// create CustomerErrorResponse
-		
-		CustomerErrorResponse error = new CustomerErrorResponse(
-											HttpStatus.NOT_FOUND.value(),
-											exc.getMessage(),
-											System.currentTimeMillis());
-		
-		// return ResponseEntity
-		
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+		//CustomerErrorResponse
+		CustomerErrorResponse err = new CustomerErrorResponse(HttpStatus.NOT_FOUND.value(),
+																e.getMessage(),
+																System.currentTimeMillis());
+		return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
 	}
 	
-	
-	// Add another exception handler ... to catch any exception (catch all)
-
+	//c ëºÇ∑Ç◊ÇƒÇÃó·äO catch All
 	@ExceptionHandler
-	public ResponseEntity<CustomerErrorResponse> handleException(Exception exc) {
+	public ResponseEntity<CustomerErrorResponse> handleException(Exception e){
 		
-		// create CustomerErrorResponse
-		
-		CustomerErrorResponse error = new CustomerErrorResponse(
-											HttpStatus.BAD_REQUEST.value(),
-											exc.getMessage(),
-											System.currentTimeMillis());
-		
-		// return ResponseEntity
-		
-		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		//400 error
+		CustomerErrorResponse err = new CustomerErrorResponse(HttpStatus.BAD_REQUEST.value(),
+																e.getMessage(),
+																System.currentTimeMillis());
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
 	}
-	
 }
-
-
-
-
-

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.spring.demo.entity.Customer;
 
-//c ŒÚ‹qinterface
 public interface CustomerService {
 
 	public List<Customer> getCustomers();

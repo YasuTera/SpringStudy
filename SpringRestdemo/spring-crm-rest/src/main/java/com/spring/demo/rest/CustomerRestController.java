@@ -3,11 +3,9 @@ package com.spring.demo.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,92 +17,42 @@ import com.spring.demo.service.CustomerService;
 @RequestMapping("/api")
 public class CustomerRestController {
 
-	// autowire the CustomerService
+	//CustomerService紐づけ
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService cs;
 	
-	// add mapping for GET /customers
+	// mapping GET /customers
 	@GetMapping("/customers")
-	public List<Customer> getCustomers() {
+	public List<Customer> getCustomers(){
 		
-		return customerService.getCustomers();
-		
+		return cs.getCustomers();
 	}
 	
-	// add mapping for GET /customers/{customerId}
-	
-	@GetMapping("/customers/{customerId}")
-	public Customer getCustomer(@PathVariable int customerId) {
+	//mapping GET /customers/{customerId}
+	@GetMapping("/customers/{cId}")
+	public Customer getCustomer(@PathVariable int cId) {
 		
-		Customer theCustomer = customerService.getCustomer(customerId);
+		Customer theCustomer = cs.getCustomer(cId);
 		
-		if (theCustomer == null) {
-			throw new CustomerNotFoundException("Customer id not found - " + customerId);
+		//c エラーページ遷移処理　存在しないID URLとString URL
+		if(theCustomer == null) {
+			throw new CustomerNotFoundException("顧客IDが見つかりません - " + cId);
 		}
 		
 		return theCustomer;
 	}
 	
-	// add mapping for POST /customers  - add new customer
 	
+	//mapping POST /customers
 	@PostMapping("/customers")
-	public Customer addCustomer(@RequestBody Customer theCustomer) {
+	public Customer addCustomer(@RequestBody Customer addCs) {
 		
-		// also just in case the pass an id in JSON ... set id to 0
-		// this is force a save of new item ... instead of update
+		//0/null　Insert処理になる　Hibernateの仕様　
+		addCs.setId(0);
 		
-		theCustomer.setId(0);
+		cs.saveCustomer(addCs);
 		
-		customerService.saveCustomer(theCustomer);
-		
-		return theCustomer;
-	}
-	
-	// add mapping for PUT /customers - update existing customer
-	
-	@PutMapping("/customers")
-	public Customer updateCustomer(@RequestBody Customer theCustomer) {
-		
-		customerService.saveCustomer(theCustomer);
-		
-		return theCustomer;
-		
-	}
-	
-	// add mapping for DELETE /customers/{customerId} - delete customer
-	
-	@DeleteMapping("/customers/{customerId}")
-	public String deleteCustomer(@PathVariable int customerId) {
-		
-		Customer tempCustomer = customerService.getCustomer(customerId);
-		
-		// throw exception if null
-		
-		if (tempCustomer == null) {
-			throw new CustomerNotFoundException("Customer id not found - " + customerId);
-		}
-				
-		customerService.deleteCustomer(customerId);
-		
-		return "Deleted customer id - " + customerId;
+		return addCs;
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
