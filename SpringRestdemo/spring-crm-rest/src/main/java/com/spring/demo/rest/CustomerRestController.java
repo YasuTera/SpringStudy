@@ -38,7 +38,7 @@ public class CustomerRestController {
 		
 		//c エラーページ遷移処理　存在しないID URLとString URL
 		if(theCustomer == null) {
-			throw new CustomerNotFoundException("顧客ID:"+ cId +"が見つかりません");
+			throw new CustomerNotFoundException("customerID:"+ cId +"　NotFound");
 		}
 		
 		return theCustomer;
@@ -74,12 +74,12 @@ public class CustomerRestController {
 		//c 該当する顧客IDがなかったとき
 		Customer tmpCs = cs.getCustomer(cId);
 		if(tmpCs == null) {
-			throw new CustomerNotFoundException("顧客ID:"+ cId +"が見つかりません");
+			throw new CustomerNotFoundException("customerID:"+ cId +"　NotFound");
 		}
 
 		//c メイン処理
 		cs.deleteCustomer(cId);
-		return "顧客ID - "+ cId +"を削除しました";
+		return "customerID - "+ cId +" is Deleted.";
 	}
 	
 	
